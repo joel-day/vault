@@ -1,0 +1,23 @@
+!pip install pyathena
+from pyathena import connect
+import pandas as pd
+
+dbname = "Viewboost"
+
+wd = datapath + "athena/staging"
+
+conn = connect(region_name=region, s3_staging_dir=wd)
+
+sql = "CREATE DATABASE IF NOT EXISTS {}".format(dbname)
+
+#pd.read_sql(sql, conn)
+
+sql2 = "SHOW DATABASES"
+pd.read_sql(sql2, conn)
+
+%store Viewboost
+
+finalcsv = finalcsv.drop('thumbnail_link', axis='columns', inplace=True)
+finalcsv = finalcsv.drop('channelId', axis='columns', inplace=True)
+finalcsv = finalcsv.drop('video_id', axis='columns', inplace=True)
+finalcsv.head(3)
